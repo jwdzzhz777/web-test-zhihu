@@ -1,0 +1,36 @@
+<template name="postsItem">
+	<div id="item">
+		<hr style="margin:5px"/>
+		<div id="sitem">
+			<div style="display:inline-block;text-align:center;vertical-align:top;margin-right:10px">
+					<img src="{{usericon}}" alt="头像" style="height:40px;width:40px;margin:5px" class="img-rounded">
+					<div></div>
+					<a href="#" class="upvote btn btn-default {{upvotedClass}}" style="background-color:#cce1ef;color:#0766c5;border:0px solid #cce1ef;">{{pluralize votes "Vote"}}</a>
+			</div>
+			<div id="sitem" style="display:inline-block;width:85%">
+				<div>
+					<p id="htopic">来自话题：</p>
+					{{#each topicId}}
+							<a id="htopic" href="{{pathFor 'topicPage'}}">{{topic}}</a>
+							<!--<p id="htopic" >、</p>	-->
+					{{/each}}
+				</div>
+				<div>
+					<a style="font-size:18px" href="{{pathFor 'postsPage'}}">{{title}}</a>
+					<p><strong>{{author}}</strong>,  这里是作者的简介</p>
+					<div class="summernote">
+						<div class="clicksummernote" type="button">
+								{{#if hasImg}}
+								<img src="{{firstImg}}" style="max-width:200px;max-height:112px;float:left;margin-right:5px">
+								{{/if}}
+								{{bodyWithoutImage}}
+						</div>
+					</div>
+					<p style="font-size: 12px;float: left;color: #5d5d5d;">time: {{submitted}} <a href="{{pathFor 'postsPage'}}">{{commentsCount}} comments</a></p>
+				</div>
+			</div>
+			<div style="clear:both"></div>
+		</div>
+	</div>
+</template>
+<!--{{#with}}可以控制撒谎那个下文，我前面用了复杂的方法-->

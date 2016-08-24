@@ -1,0 +1,29 @@
+<template name="postSubmit">
+    <div id="formDiv" style="margin:20px">
+    	<form class="mainform">
+        	<div class="form-group {{errorClass 'title'}}">
+         		<label class="control-label" for="title">Title</label>
+          		<div class="controls">
+              		<input name="title" id="title" type="text" value="" placeholder="Name your post" class="form-control"/>
+                    <span class="help-block">{{errorMessage 'title'}}</span>
+          		</div>
+        	</div>
+        	<div class="form-group {{errorClass 'topic'}}">
+         		<label class="control-label" for="topic">Topic</label>
+          		<div class="controls">
+              		<input name="topic" id="topic" type="text" value="" placeholder="your topic" class="form-control"/>
+                    <span class="help-block">{{errorMessage 'topic'}}</span>
+          		</div>
+        	</div>
+            <div id="editor" class="form-group {{errorClass 'body'}}">
+                <label class="control-label" for="body">Body</label>
+				<div class="controls">
+					<div class="summernote"></div>
+	                <span class="help-block">{{errorMessage 'body'}}</span>
+				</div>
+            </div>
+        	<input type="submit" value="Submit" class="btn btn-primary"/>
+        </form>
+
+    </div>
+</template>

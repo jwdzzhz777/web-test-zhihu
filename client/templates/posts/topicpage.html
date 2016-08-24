@@ -1,0 +1,67 @@
+<template name="topicPage">
+	<div class="leftbox">
+		<div style="margin:10px 10px 10px 10px;">
+			<div id="htopic" style="vertical-align:top;">
+				<img  src="{{topic.topicIcon}}" class="img-rounded" style="height:80px;width:80px">
+			</div>
+			<div id="htopic" style="vertical-align:top;margin-left:10px">
+				<div style="float:top">
+					<p style="font-size:30px">{{topic.topic}}</p>
+				</div>
+				<div>
+						<a href="" style="display:inline-block">动态</a>
+						<p style="margin:5px;display:inline-block">|</p>
+						<a href="" style="display:inline-block">精华？</a>
+						<p style="margin:5px;display:inline-block">|</p>
+						<a href="" style="display:inline-block">等待回答</a>
+				</div>
+				<div style="clear:both"></div>
+			</div>
+			<div style="clear:both"></div>
+		</div>
+		<div>
+			<hr style="margin:5px"/>
+			<div style="float:right;margin-right:20px">
+				<button id="best" class="btn btn-default btn-sm {{bestdisable}}">热门排序</button>
+				<button id="new" style="display:inline-block" class="btn btn-default btn-sm {{newdisable}}">时间排序</button>
+			</div>
+			<div style="clear:both"></div>
+		</div>
+		<div>
+		    {{> postsList}}
+		</div>
+	</div>
+	<div class="rightbox">
+		<div>
+			<div style="display:inline-block;">
+					<a id="guanzhu" class="discuss btn btn-default">{{guanzhu}}</a>
+			</div>
+			<p style="display:inline-block;"><a href="">{{likescount}}</a>人关注了该话题</p>
+			<div style="clear:both"></div>
+			<p>anothor</p>
+			<hr style="height: 1px;border-top:1px solid #eeeeee;"/>
+		</div>
+		<div style="height:200px">
+			<h3>描述</h3>	
+			<P>{{topic.describe}}</P>
+		</div>
+		<div>
+			<hr style="height: 1px;border-top:1px solid #eeeeee;"/>
+			<p>父话题</p>
+			{{#each parentTopics}}
+				<span class="badge" style="background-color:#66ccff">
+					<a id="topostTopic" href="{{pathFor 'topicPage'}}" style="color:white">{{topic}}</a>
+				</span>
+			{{/each}}
+		</div>
+		<div>
+			<hr style="height: 1px;border-top:1px solid #eeeeee;"/>
+			<p>子话题</p>
+			{{#each childTopics}}
+					<span class="badge" style="background-color:#66ccff">
+						<a id="topostTopic" href="{{pathFor 'topicPage'}}" style="color:white">{{topic}}</a>
+					</span>
+			{{/each}}
+		</div>	
+	</div>
+</template>

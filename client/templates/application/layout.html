@@ -1,0 +1,26 @@
+<template name="layout">
+	<div>
+		{{> head1}}
+		{{> sAlert}}
+		<div id="main" class="container" style="padding-top:50px;positon:relative">
+			{{> yield}}
+		</div>
+			{{> buttom}}
+		<div id='iconProgressDialog'>
+			{{#with FS.GetFile "icons" selectedIconId}}
+				{{> FS.UploadProgressBar bootstrap=true class='progress-bar-success progress-bar-striped active' showPercent=true}}
+				{{#if isUploaded}}
+					<p>等待最后工作</p>
+				{{/if}}
+			{{/with}}
+		</div>
+		<div id='imageProgressDialog'>
+			{{#with FS.GetFile "images" selectedImageId}}
+				{{> FS.UploadProgressBar bootstrap=true class='progress-bar-success progress-bar-striped active' showPercent=true}}
+				{{#if isUploaded}}
+					<p>等待最后工作</p>
+				{{/if}}
+			{{/with}}
+		</div>
+	</div>
+</template>

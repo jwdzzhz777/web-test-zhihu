@@ -1,0 +1,19 @@
+<template name="postsPage">
+	<div class="leftbox">
+		{{> postsItem}}
+		<ul class="comments">
+			{{#each comments}}
+				{{> commentItem}}
+			{{/each}}
+		</ul>
+		<hr style="height: 1px;border-top:1px solid #eeeeee;margin-top:20px;margin-buttom:20px;" />
+		{{#if currentUser}}
+			{{> commentSubmit}}
+		{{else}}
+			<h3>你需要先登录</h3>
+		{{/if}}
+	</div>
+	<div class="rightbox">
+
+	</div>
+</template>

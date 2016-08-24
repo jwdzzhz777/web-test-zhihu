@@ -1,0 +1,32 @@
+<template name="head1">
+	<div class="titlebar" style="width:100%;height:50px;position:fixed;margin:0;z-index:1;">
+		<div  class="container">
+			<nav>
+				<a class="navbar-brand" id="toptitle" href="{{pathFor 'postList'}}">之乎</a>
+				<ul class="nav navbar-nav">
+					<li class="active">
+						 <a class="navbar-brand" href="/topic">话题</a>
+					</li>
+					{{#if currentUser}}
+						<li  class="active">
+							<a class="navbar-brand" href="{{pathFor 'postSubmit'}}">提问</a>
+						</li>
+						<li class="dropdown">{{> notifications}}</li>
+					{{/if}}
+				</ul>
+				<div style="float:right;">
+					{{#if currentUser}}
+						<a href="{{pathFor 'userPage'}}" style="height:100%">
+							<img src="{{usericon}}" alt="头像" class="img-circle" style="height:30px;width:30px;margin-top:10px">
+						</a>
+					{{/if}}
+					<ul id="login" class="nav navbar-nav navbar-right">
+						{{> loginButtons}}
+					</ul>
+				</div>
+			</nav>
+			{{> errors}}
+		</div>
+		<div style="clear:both"></div>
+	</div>
+</template>

@@ -1,0 +1,21 @@
+<template name="userPage">
+	<div class="leftbox">
+		<div id="userdiv">
+			<p style="margin:20px">{{user.username}}</p>
+			<img src="{{usericon}}" alt="头像" style="height:100px;width:100px;margin:10px">
+			{{#each icons}}
+				{{#unless isUpload}}
+					{{> FS.UploadProgressBar bootstrap=true class='progress-bar-success progress-bar-striped active' showPercent=true}}
+				{{/unless}}
+			{{/each}}
+			<input style="margin:20px" type="file" id="img">
+		</div>
+		<div id="userdiv">
+			{{> postsList}}
+		</div>
+	</div>
+	<div class="rightbox">
+
+	</div>
+
+</template>

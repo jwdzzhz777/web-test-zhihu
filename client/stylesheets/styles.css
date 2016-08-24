@@ -1,0 +1,128 @@
+.container{
+    width:960px;
+}
+
+.titlebar{
+    background-color: #0766c5;
+}
+
+#toptitle{
+    font-family: "微软简行楷";
+    font-size: 35px;
+    float: left;
+    color: white;
+}
+
+.navbar-brand,.titlebar .dropdown-toggle{
+    color: white;
+}
+
+
+
+#login{
+    margin-right: 10px;
+}
+
+#htopic{
+    display:inline-block;
+}
+
+#item{
+    margin: 10px;
+}
+
+#sitem{
+    margin: 3px;
+}
+
+#userdiv{
+    border:1px solid #cce1ef;
+    margin: 10px;
+}
+
+.leftbox{
+    float:left;
+    width:70%;
+}
+
+.rightbox{
+    float:left;
+    width:25%;
+    vertical-align:top;
+    margin-left: 20px;
+    margin-top:20px;
+}
+
+.topicsquare{
+    text-align:center;
+    background: #eff6fA;
+    border: 1px solid #cce1ef;
+}
+
+#item{
+    position:relative;
+}
+ #item.animate{
+    -webkit-transition: all 250ms 0ms ease-out;
+    -moz-transition: all 250ms 0ms ease-out;
+    -o-transition: all 250ms 0ms ease-out;
+    transition: all 250ms 0ms ease-out; }
+
+@-webkit-keyframes fadeOut {
+    0% {opacity: 0;}
+    10% {opacity: 1;}
+    90% {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+@keyframes fadeOut {
+    0% {opacity: 0;}
+    10% {opacity: 1;}
+    90% {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+
+.alert {
+          animation: fadeOut 2700ms ease-in 0s 1 forwards;
+    -webkit-animation: fadeOut 2700ms ease-in 0s 1 forwards;
+     -moz-animation: fadeOut 2700ms ease-in 0s 1 forwards;
+    width: 250px;
+    float: right;
+    clear: both;
+    margin-bottom: 5px;
+    pointer-events: auto;
+}
+
+.load-more {
+    display: block;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.05);
+    text-align: center;
+    height: 60px;
+    line-height: 60px;
+    margin-bottom: 10px; }
+    .load-more:hover {
+        text-decoration: none;
+        background: rgba(0, 0, 0, 0.1); }
+
+div,p{
+    word-wrap : break-word;
+    position:relative;
+}
+
+.headbt:active{
+    background-color: #eff6fA;
+    color: #0766c5;
+}
+
+.clicksummernote{
+    letter-spacing:2px;
+    max-height:112px;
+    width:100%;
+    line-height:1.7;
+    font-size:13px;
+    overflow : hidden;
+    text-overflow: ellipsis;
+    cursor:pointer;
+}

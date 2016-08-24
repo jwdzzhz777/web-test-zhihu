@@ -1,0 +1,100 @@
+<template name="postTopic">
+	<div>
+	{{#if currentUser}}
+		{{#if noTopic}}
+			<div class="leftbox">
+				<h4 style="margin:10px">已关注的话题动态：</h4>
+				<hr style="margin:0px"/>
+				<div style="height:200px;line-height:200px;text-align:center">你还没有关注的话题</div>
+				<div style="border:1px solid #eeeeee;">
+					<h4 style="margin:10px">其他人关注的话题:<a href="">换一换</a></h4>
+					{{#each topics}}
+						<div id="item" style="vertical-align:middle;height:80px;overflow:hidden">
+							<hr style="margin:0px"/> 
+							<div style="margin-top:20px;margin-left:20px;">
+							<div style="display:inline-block;vertical-align:top;margin-right:20px">
+								<img id="htopic" src="{{topicIcon}}" style="height:50px;width:50px;">
+							</div>
+							<div style="display:inline-block;width:60%;">
+								<a href="{{pathFor 'topicPage'}}">{{topic}}</a>
+								<P>{{describe}}</P>
+							</div>
+							<div style="display:inline-block;float:right;margin-top:0px;margin-right:40px">	
+									<a id="guanzhu" class="discuss btn btn-default">{{guanzhu}}</a>
+							</div>
+							<div style="clear:both"></div>
+							</div>
+						</div>
+					{{/each}}
+				</div>
+			</div>
+			<div class="rightbox">
+				<div class="topicsquare">
+					<div style="margin-top:34px;margin-bottom:34px;">
+						<a href="/publictopics" class="btn btn-primary ">话题广场</a>
+						<p style="margin:5px">来这里发现更多有趣的话题</p>
+					</div>
+				</div>
+			</div>
+		{{else}}
+			<div class="leftbox">
+				<div id="head2">
+					<div>
+						<h4 style="margin:10px">
+							<span class="glyphicon glyphicon-align-justify" style="color:#cce1ef" aria-hidden="true"></span>
+							已关注的话题动态
+						</h4>
+						<hr style="margin:0px"/>
+					</div>
+					<div style="margin: 10px;" > 
+						<ul class="nav nav-pills">
+							{{#each topicd}}
+								<li class="{{#if isactive}}{{isactive}}{{/if}}" id="htopic" style="margin:5px;z-index:0">
+									<a id="topostTopic" href="{{pathFor 'postTopic'}}" >{{topic}}</a>
+								</li>
+							{{/each}}
+						</ul>
+					</div>
+					<div style="clear:both"></div>
+				</div>
+				<hr style="margin:0px"/> 
+				<div style="margin: 10px;position:relative;" id="topicicon">
+					<div style="display:inline-block;vertical-align:top">
+						<a href="/topic/{{topicfirst._id}}">
+							<img id="htopic" src="{{topicfirst.topicIcon}}" style="margin:5px;height:80px;width:80px;" class="img-thumbnail">
+						</a>
+					</div>
+					<div style="display:inline-block;width:50%">
+						<a href="/topic/{{topicfirst._id}}">
+							<h1 id="htopic" style="margin:5px">{{topicfirst.topic}}</h1>
+						</a>
+						<p style="overflow:hidden">{{topicfirst.describe}}</p>
+					</div>
+					<div style="display:inline-block;position:absolute;right:0;bottom:0">
+						<button  id="best" class="btn btn-default btn-sm {{bestdisable}}">热门排序</button >
+						<button  id="new" style="display:inline-block" class="btn btn-default btn-sm {{newdisable}}">时间排序</button >
+					</div>
+					<div style="clear:both"></div>
+				</div>
+				<div>
+				    {{> postsList}}
+				</div>
+			</div>
+			<div class="rightbox">
+				<div class="topicsquare">
+					<div style="margin-top:34px;margin-bottom:34px;">
+						<a href="/publictopics" class="btn btn-primary ">话题广场</a>
+						<p style="margin:5px">来这里发现更多有趣的话题</p>
+					</div>
+				</div>
+				<div style="margin-top:20px">
+					<hr style="margin:0px"/> 
+					<h4 style="margin:10px">其他人关注的话题:<a href="">换一换</a></h4>
+				</div>
+			</div>
+		{{/if}}
+	{{else}}
+		<h3>你需要先登录</h3>
+	{{/if}}
+	</div>
+</template>

@@ -1,0 +1,38 @@
+<template name="topicsPage">
+	<div class="leftbox">
+		<h4 style="margin:10px">
+			<span class="glyphicon glyphicon-align-justify" style="color:#cce1ef" aria-hidden="true"></span>
+			话题广场
+		</h4>
+		<hr style="margin:0px"/>
+		<ul class="nav nav-pills" style="margin-top:10px">
+			{{#each topics}}
+				<li class="{{isactive}}" style="margin:5px;z-index:0">
+					<a href="/publictopics/{{topic.topic}}">{{topic.topic}}</a>
+				</li>
+			{{/each}}
+		</ul>
+		{{#each sometopic}}
+			<div id="item" style="vertical-align:middle;height:80px;overflow:hidden;width:47%;display:inline-block;">
+			<hr style="margin:0px"/>
+				<div style="margin-top:20px;margin-left:20px;">
+				<div style="display:inline-block;vertical-align:top;margin-right:20px">
+					<img id="htopic" src="{{topicIcon}}" style="height:50px;width:50px;">
+				</div>
+				<div style="display:inline-block;width:40%;">
+						<a href="{{pathFor 'topicPage'}}" style="display:inline-block;">{{topic}}</a>
+					<P>{{describe}}</P>
+				</div>
+				<div style="display:inline-block;float:right;vertical-align:top;margin-right:5px;">
+					<a id="guanzhu" class="btn btn-default btn-sm">{{guanzhu}}</a>
+				</div>
+				<div style="clear:both"></div>
+				</div>
+			</div>
+		{{/each}}
+		<div style="clear:both"></div>
+	</div>
+	<div class="rightbox">
+		
+	</div>
+</template>

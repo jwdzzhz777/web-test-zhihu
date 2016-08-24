@@ -1,0 +1,61 @@
+<template name="postList">
+	<div id="scrolldiv">
+		<div class="leftbox">
+		{{#if currentUser}}
+			<div style="margin:20px">
+				<img src="{{usericon}}" alt="头像" style="height:40px;width:40px;float:left" class="img-rounded">
+				<ul class="nav nav-pills" style="float:left;margin-left:20px">
+					<li role="presentation">
+						<a href="{{pathFor 'postSubmit'}}" style="font-size:16px">
+							<span class="glyphicon glyphicon-plus" style="color:#0766c5;" aria-hidden="true"></span>
+							&nbsp;提问
+						</a>
+					</li>
+					<li role="presentation">
+						<a href="" style="font-size:16px">
+							<span class="glyphicon glyphicon-comment" style="color:#0766c5;" aria-hidden="true"></span>
+							&nbsp;回答
+						</a>
+					</li>
+					<li role="presentation">
+						<a href="" style="font-size:16px">
+							<span class="glyphicon glyphicon-edit" style="color:#0766c5" aria-hidden="true"></span>
+							&nbsp;写文章
+						</a>
+					</li>
+				</ul>
+				<div style="clear:both"></div>
+			</div>
+		{{/if}}
+			<div>
+				<hr style="margin:0px"/>
+				<h4 style="margin:10px">
+					<span class="glyphicon glyphicon-align-justify" style="color:#cce1ef" aria-hidden="true"></span>
+					最新动态
+				</h4>
+			</div>
+			{{> postsList}}
+		</div>
+		<div class="rightbox">
+			<div style="border:1px solid #eeeeee;height:200px;width:100%;background:#cce1ef"></div>
+		</div>
+	</div>
+</template>
+
+<template name="postsList">
+	<div id="scrolldiv">
+		<div class="wrapper">
+			{{#each posts}}
+				{{> postsItem}}
+			{{/each}}
+		</div>
+		<div>
+			{{#if nextPath}}
+		     	<a class="load-more" id="showMoreResults" href="/">Load more</a>
+		     	{{#unless ready}}
+			    	{{> spinner}}
+			    {{/unless}}
+		    {{/if}}
+		</div>
+	</div>
+</template>
