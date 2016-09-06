@@ -1,26 +1,14 @@
 <template name="layout">
-	<div>
+	<div style='position:relative;min-height:100%;height:auto;'>
 		{{> head1}}
 		{{> sAlert}}
 		<div id="main" class="container" style="padding-top:50px;positon:relative">
 			{{> yield}}
 		</div>
-			{{> buttom}}
-		<div id='iconProgressDialog'>
-			{{#with FS.GetFile "icons" selectedIconId}}
-				{{> FS.UploadProgressBar bootstrap=true class='progress-bar-success progress-bar-striped active' showPercent=true}}
-				{{#if isUploaded}}
-					<p>等待最后工作</p>
-				{{/if}}
-			{{/with}}
-		</div>
-		<div id='imageProgressDialog'>
-			{{#with FS.GetFile "images" selectedImageId}}
-				{{> FS.UploadProgressBar bootstrap=true class='progress-bar-success progress-bar-striped active' showPercent=true}}
-				{{#if isUploaded}}
-					<p>等待最后工作</p>
-				{{/if}}
-			{{/with}}
-		</div>
 	</div>
+	{{> dialogBox}}
+	<div id="scrollTopButton" style="position:fixed;left:70%;top:90%;">
+		<a style="cursor:pointer"><span class="glyphicon glyphicon-chevron-up" style="font-size:40px" aria-hidden="true"></span></a>
+	</div>
+	{{> bottom}}
 </template>

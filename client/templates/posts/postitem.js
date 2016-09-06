@@ -1,7 +1,28 @@
-Template.postsItem.onRendered(function(){
-	//
+Meteor.startup(function(){
+    $(window).bind('beforeunload', function() {
+        deleteWitchNotUsed(witchIsNotUsed(uploadImageId,usedImageId));
+        // have to return null, unless you want a chrome popup alert
+		var ed;
+        return ed;
+		//return null 依旧会弹出alert，不return任何东西似乎可以,但会报错,而随便给一个null的对象有时候不会报错
+        //return 'Are you sure you want to leave your Vonvo?';
+    });
 });
 
+Template.postsItem.onRendered(function(){
+	this.$('.summernote').on('click','img.imageUp',function(e){
+		var $dialog = $('#imgBox');
+		$dialog.find('#imgToShow').attr('src',$(e.target).attr('src'));
+		$dialog.on('click','.dialogCloseButton', function(e){
+			$dialog.dialog('close');
+		});
+		$dialog.dialog('open');
+	});
+});
+
+Template.postSubmit.onDestroyed(function(){
+	deleteWitchNotUsed(witchIsNotUsed(uploadImageId,usedImageId));
+});
 
 Template.postsItem.helpers({
 	upvotedClass: function() {
@@ -52,6 +73,14 @@ Template.postsItem.helpers({
 		if(image){
 			return image.url();
 		}
+	},
+	isPostPage:function (){
+		var name = Router.current().route.getName();
+		return name === 'postsPage';
+	},
+	isPostsUser:function(){
+		var id = Meteor.userId();
+		return id === this.userId;
 	}
 });
 
@@ -60,20 +89,76 @@ Template.postsItem.events({
 		e.preventDefault();
 		Meteor.call('upvote', this._id);
 	},
-	//尝试使用自定义事件,将summernote()的行为放在了.summernote自身上
-	//放弃使用这种方法
-	/*'change:summernote .summernote': function(e){
+	'click .clicksummernote': function(e,instance){
 		e.preventDefault();
-		$(e.target).summernote('code',this.body);
-		$(e.target).summernote('destroy');
+		$(e.target).closest('.summernote').append(instance.data.body);
+		$(e.target).closest('.clicksummernote').remove();//删除
 	},
-	'click .clicksummernote': function(e,instance){
+	'saveAndCancel:show #saveAndCancel':function(e,instance){
+		$(e.target).css({
+			visibility: 'visible'
+		});
+	},
+	'saveAndCancel:hidden #saveAndCancel':function(e,instance){
+		$(e.target).css({
+			visibility: 'hidden'
+		});
+	},
+	'editBody:show #editBody':function(e,instance){
+		$(e.target).css({
+			visibility: 'visible'
+		});
+	},
+	'editBody:hidden #editBody':function(e,instance){
+		$(e.target).css({
+			visibility: 'hidden'
+		});
+	},
+	'click #editBody': function(e,instance){
+		instance.$('#saveAndCancel').trigger('saveAndCancel:show');
+		instance.$('#editBody').trigger('editBody:hidden');
+		instance.$('.summernote').summernote(getNode()).summernote('code',this.body);
+	},
+	'click #editCancle':function(e,instance){
+		instance.$('#saveAndCancel').trigger('saveAndCancel:hidden');
+		instance.$('#editBody').trigger('editBody:show');
+		instance.$('.summernote').summernote('code',this.body);
+		instance.$('.summernote').summernote('destroy');
+		deleteWitchNotUsed(witchIsNotUsed(uploadImageId,usedImageId));
+	},
+	'click #editSave':function(e,instance){
 		e.preventDefault();
-		$(e.target).closest('.summernote').trigger('change:summernote');
-	}*/
-	'click .clicksummernote': function(e,instance){
-		e.preventDefault();
-		$(e.target).parent().append(this.body);
-		$(e.target).detach();
+		var oldUsedImageId = instance.data.usedImageId;
+		var markupStr = instance.$('.summernote').summernote('code');
+		var markupStrWithoutImage = $(markupStr).remove('img').text();
+		if(markupStrWithoutImage.length <= BODY_LENGTH_LAST){
+			return sAlert.success('你必须至少输入20个字符',{timeout: 2000,effect:'jelly'});
+		}
+
+		usedImageId = $(markupStr).find('img.imageUp').map(
+				function(index,element){return $(element).attr('id');}
+			).get();
+
+		var post = {
+			id: this._id,
+			body: markupStr,
+			bodyWithoutImage: markupStrWithoutImage,
+			usedImageId: usedImageId
+		}
+
+		Meteor.call('updatePosts',post,function(error,result){
+			if(error){
+				return throwError(error.reason);
+			}
+
+			if(result){
+				instance.$('#editCancle').trigger('click');
+			}
+			var delete1 = witchIsNotUsed(uploadImageId,usedImageId);
+			var delete2 = witchIsNotUsed(oldUsedImageId,usedImageId);
+			deleteWitchNotUsed(delete1);
+			deleteWitchNotUsed(delete2);
+		});
+
 	}
 });

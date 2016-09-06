@@ -1,14 +1,14 @@
 //解决方法:https://github.com/meteor/meteor/issues/1434
-/*Meteor.startup(function(){
+Meteor.startup(function(){
     $(window).bind('beforeunload', function() {
-        deleteWitchNotUsed(witchIsNotUsed(allImageId,usedImageId));
+        deleteWitchNotUsed(witchIsNotUsed(uploadImageId,usedImageId));
         // have to return null, unless you want a chrome popup alert
 		var ed;
         return ed;
 		//return null 依旧会弹出alert，不return任何东西似乎可以,但会报错,而随便给一个null的对象有时候不会报错
         //return 'Are you sure you want to leave your Vonvo?';
     });
-});*///直接放在onDestroyed()内更方便
+});
 //下拉菜单不出来是因为有多个包含bootstrap的包，留一个就好。
 
 Template.postSubmit.onCreated(function() {
@@ -16,7 +16,7 @@ Template.postSubmit.onCreated(function() {
 });
 
 Template.postSubmit.onDestroyed(function(){
-	deleteWitchNotUsed(witchIsNotUsed(allImageId,usedImageId));
+	deleteWitchNotUsed(witchIsNotUsed(uploadImageId,usedImageId));
 });
 
 Template.postSubmit.onRendered(function() {
@@ -39,15 +39,6 @@ Template.postSubmit.events({
 		var topic = $(e.target).find('[name=topic]').val();//.val()方法只在表单元素中可用
 
 		var markupStr = instence.$('.summernote').summernote('code');
-		/*Template.instance().$('.summernote img.imageUp').each(function(index,element){
-			usedImageId.push($(element).attr('id'));
-			console.log('img result: ',$(element).attr('id'));
-		});*/
-		//,map()代替.each()。
-		usedImageId = $(markupStr).find('img.imageUp').map(function(index,element){
-			return $(element).attr('id');
-			console.log('img result: ',$(element).attr('id'));
-		}).get();
 
 		var post = {
 			title: $(e.target).find('[name=title]').val(),
@@ -62,8 +53,9 @@ Template.postSubmit.events({
 			return Session.set('postSubmitErrors', errors);
 		}
 
-		if(markupStr <= BODY_LENGTH_LAST){
-			sAlert.success('你必须至少输入20个字符',{timeout: 2000,effect:'jelly'});
+		var markupStrWithoutImage = $(markupStr).remove('img').text();
+		if(markupStrWithoutImage.length <= BODY_LENGTH_LAST){
+			return sAlert.success('你必须至少输入20个字符',{timeout: 2000,effect:'jelly'});
 		}
 
 		//检测话题
@@ -72,10 +64,16 @@ Template.postSubmit.events({
 			return throwError("暂时没有该话题");
 		}
 		post.topic = tipicId._id;
-		//
 
-		var markupStrWithoutImage = $(markupStr).remove('img').text();
-		console.log('submit result: ',markupStrWithoutImage);
+		/*Template.instance().$('.summernote img.imageUp').each(function(index,element){
+			usedImageId.push($(element).attr('id'));
+			console.log('img result: ',$(element).attr('id'));
+		});*/
+		//,map()代替.each()。
+		usedImageId = $(markupStr).find('img.imageUp').map(function(index,element){
+			return $(element).attr('id');
+			console.log('img result: ',$(element).attr('id'));
+		}).get();
 
 		_.extend(post,{
 			bodyWithoutImage: markupStrWithoutImage,
@@ -92,10 +90,8 @@ Template.postSubmit.events({
 				throwError('该问题已经存在！');
 				return Router.go('postsPage' , {_id:result._id});
 			}
-
+			deleteWitchNotUsed(witchIsNotUsed(uploadImageId,usedImageId));//方法在summernode.js
 			Router.go('postsPage' , {_id:result._id});
 		});
-
-		deleteWitchNotUsed(witchIsNotUsed(allImageId,usedImageId));//方法在summernode.js
 	}
 });

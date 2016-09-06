@@ -12,25 +12,32 @@
 					<p id="htopic">来自话题：</p>
 					{{#each topicId}}
 							<a id="htopic" href="{{pathFor 'topicPage'}}">{{topic}}</a>
-							<!--<p id="htopic" >、</p>	-->
 					{{/each}}
 				</div>
-				<div>
+				<div style="margin:5px">
 					<a style="font-size:18px" href="{{pathFor 'postsPage'}}">{{title}}</a>
 					<p><strong>{{author}}</strong>,  这里是作者的简介</p>
 					<div class="summernote">
 						<div class="clicksummernote" type="button">
-								{{#if hasImg}}
+							{{#if hasImg}}
 								<img src="{{firstImg}}" style="max-width:200px;max-height:112px;float:left;margin-right:5px">
-								{{/if}}
-								{{bodyWithoutImage}}
+							{{/if}}
+							{{bodyWithoutImage}}
 						</div>
 					</div>
-					<p style="font-size: 12px;float: left;color: #5d5d5d;">time: {{submitted}} <a href="{{pathFor 'postsPage'}}">{{commentsCount}} comments</a></p>
+					<!--公共帮手,在publichelpers.js中-->
+					{{#if and isPostsUser isPostPage}}
+						<a id="editBody" style="cursor:pointer;"><span class="glyphicon glyphicon-pencil"></span>修改</a>
+						<div id='saveAndCancel' style="float:right;visibility:hidden;">
+							<button id="editCancle">取消</button>
+							<button id="editSave">保存</button>
+						</div>
+					{{/if}}
 				</div>
+				<p style="font-size: 12px;float: left;color: #5d5d5d;">time: {{submitted}} <a href="{{pathFor 'postsPage'}}">{{commentsCount}} comments</a></p>
 			</div>
 			<div style="clear:both"></div>
 		</div>
 	</div>
 </template>
-<!--{{#with}}可以控制撒谎那个下文，我前面用了复杂的方法-->
+<!--{{#with}}可以控制上下文，我前面用了复杂的方法-->

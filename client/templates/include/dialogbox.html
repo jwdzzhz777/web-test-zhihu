@@ -1,0 +1,38 @@
+<template name="dialogBox">
+	<div id="allDialog">
+		<div id="imgBox">
+			<div id='imgToShowBox'>
+				<img id="imgToShow">
+			</div>
+			<a class="dialogCloseButton">
+				<span class="glyphicon glyphicon-remove" style="font-size:25px;color:black"></span>
+			</a>
+		</div>
+		<div id='iconProgressDialog'>
+			<div class="dialogProgressBar">
+				<div class="dialogProgressbody">
+					{{#with FS.GetFile "icons" selectedIconId}}
+						{{#if isUploaded}}
+							<p>等待最后工作</p>
+							{{else}}
+							<p>正在上传</p>
+						{{/if}}
+						{{> FS.UploadProgressBar bootstrap=true class='progress-bar-success progress-bar-striped active' showPercent=true}}
+					{{/with}}
+				</div>
+			</div>
+		</div>
+		<div id='imageProgressDialog'>
+			<div class='dialogProgressBar'>
+				{{#with FS.GetFile "images" selectedImageId}}
+					{{#if isUploaded}}
+						<p>等待最后工作</p>
+						{{else}}
+						<p>正在上传</p>
+					{{/if}}
+					{{> FS.UploadProgressBar bootstrap=true class='progress-bar-success progress-bar-striped active' showPercent=true}}
+				{{/with}}
+			</div>
+		</div>
+	</div>
+</template>

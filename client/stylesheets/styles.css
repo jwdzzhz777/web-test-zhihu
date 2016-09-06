@@ -1,3 +1,7 @@
+html,body{
+	height:100%;
+}
+
 .container{
     width:960px;
 }
@@ -16,8 +20,6 @@
 .navbar-brand,.titlebar .dropdown-toggle{
     color: white;
 }
-
-
 
 #login{
     margin-right: 10px;

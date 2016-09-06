@@ -1,0 +1,55 @@
+.no-content .ui-dialog-titlebar{
+	display: none;
+}
+
+.no-content .ui-dialog-content{
+	text-align: center;
+}
+
+.no-title .ui-dialog-content{
+	background: #eeeeee;
+	text-align: center;
+}
+
+.ui-widget-content{
+	border: 0;
+	background: 0;
+}
+
+#imgToShow{
+	max-width:100%;
+}
+#imgToShowBox{
+	height:100%;
+	white-space: nowrap;
+}
+#imgToShowBox:before{
+	content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.dialogProgressBar{
+	height:100%;
+	display: table;
+	width:100%;
+}
+
+.dialogProgressbody{
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.dialogCloseButton{
+	position:absolute;
+	top:30px;
+	right:30px;
+	height:25px;
+	width:25px;
+	background:black;
+	cursor:pointer;
+	border-radius:50%;
+	opacity: 0.8;
+	background: rgba(0,0,0, 0.3);
+}

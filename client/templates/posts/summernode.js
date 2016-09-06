@@ -1,11 +1,11 @@
 
-allImageId = [];
+uploadImageId = [];
 usedImageId = [];
 
 //找出哪些上传了但是没用到的图片
-witchIsNotUsed = function(allImageId,usedImageId){
+witchIsNotUsed = function(uploadImageId,usedImageId){
 	var notUsed = [];
-	$.each(allImageId ,function(index,element){
+	$.each(uploadImageId ,function(index,element){
 		var id = element;
 		var isUsed = false;
 		$.each(usedImageId,function(index,element){
@@ -25,7 +25,7 @@ deleteWitchNotUsed = function(notused) {
 	$.each(notused,function(index,element){
 		Images.remove(element);
 	});
-	allImageId = [];
+	uploadImageId = [];
 	usedImageId = [];
 }
 //editor 属性
@@ -97,7 +97,7 @@ getNode = function(){
 						throwError(err);
 					}
 					Session.set('fileObjId',fileObj);
-					allImageId.push(fileObj._id);
+					uploadImageId.push(fileObj._id);
 				});
 				Meteor.startup(function(){
 					Tracker.autorun(function() {
@@ -110,7 +110,6 @@ getNode = function(){
 									$image.attr('height', '100%');
 									$image.attr('id',id);
 								});
-								console.log('downdowndowndowndown');
 								dialog.dialog('close');
 								sAlert.success('上传已完成',{timeout: 2000,effect:'jelly'});
 								Session.set('fileObjId',null);

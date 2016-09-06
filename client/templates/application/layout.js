@@ -1,8 +1,30 @@
+dialogOption = {
+	autoOpen: false,
+	height:300,
+	width:500,
+	dialogClass: "no-title",
+	show: {
+		effect: "fade",
+		duration: 100
+	},
+	hide: {
+		effect: "fade",
+		duration: 200
+	},
+	modal: true
+}
+
 Template.postSubmit.onCreated(function() {
 	Session.set('fileObj', null);
 });
 
+//根据窗口大小改变dialog的大小。
+$(window).resize(function(){
+	$('#imgBox').dialog('option','height',$(window).height());
+});
+
 Template.layout.onRendered(function() {
+	//动画
 	this.find('#main')._uihooks = {
 		insertElement: function(node, next) {
 			$(node).animate({
@@ -20,9 +42,24 @@ Template.layout.onRendered(function() {
 				$(this).remove();
 			});
 		}
-	}
-	$('#iconProgressDialog').dialog({
+	};
+
+	//弹窗初始化
+	$('#iconProgressDialog').dialog(dialogOption);
+	$('#imageProgressDialog').dialog(dialogOption);
+	$('#imgBox').dialog({
 		autoOpen: false,
+		height: $(window).height(),
+		width:'100%',
+		resizable : false,//不可改变大小
+		draggable: false,//不可拖动
+		dialogClass: "no-content",
+		open: function(event,ui){
+			$('body').css({'overflow-y':'hidden'});
+		},
+		beforeClose: function(event,ui){
+			$('body').css({'overflow-y':'scroll'});
+		},
 		show: {
 			effect: "fade",
 			duration: 100
@@ -31,35 +68,14 @@ Template.layout.onRendered(function() {
 			effect: "fade",
 			duration: 200
 		},
-	    modal: true
-    });
-	$('#imageProgressDialog').dialog({
-		autoOpen: false,
-		show: {
-			effect: "fade",
-			duration: 100
-		},
-		hide: {
-			effect: "fade",
-			duration: 200
-		},
-	    modal: true
-    });
+		modal: true
+	});
+	//回到顶部按钮
+	$('#scrollTopButton').hide();
 });
 
-Template.layout.helpers({
-	selectedImageId: function(){
-		if(fileObj = Session.get('fileObjId')){
-			return fileObj._id;
-		}else{
-			return null;
-		}
-	},
-	selectedIconId: function(){
-		if(fileObj = Session.get('fileObIconjId')){
-			return fileObj._id;
-		}else{
-			return null;
-		}
+Template.layout.events({
+	'click #scrollTopButton': function(e){
+		scrollToTop();
 	}
 });

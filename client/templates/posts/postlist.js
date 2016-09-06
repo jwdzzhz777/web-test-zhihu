@@ -1,18 +1,35 @@
-//��ҳ��
+﻿//锟斤拷页锟斤拷
 $(window).scroll(showMoreVisible);
 function showMoreVisible() {
 	var target = $('#showMoreResults');
-		if (!target.length) return;
-		var name = Router.current().route.getName();
-		var threshold = $(window).scrollTop() + $(window).height() - target.height();
-		if (target.offset().top < threshold) {
-			Session.set(name,{
-				limit: Session.get(name).limit + 5,
-				sort: Session.get(name).sort
-			});
-			console.log('scroll result: ', threshold+"||"+target.offset().top);
-		}
+	$scrollTopButton = $('#scrollTopButton');
+	var scrollTopInt = $(window).scrollTop();
+	if(	scrollTopInt >= SHOW_BUTTON_SCROLL	&&
+		$scrollTopButton.is(":hidden")		&&
+		!$scrollTopButton.is(":animated")
+	){
+		$scrollTopButton.fadeIn(500);
+	}else if(	scrollTopInt <= SHOW_BUTTON_SCROLL	&&
+				$scrollTopButton.is(":visible")		&&
+				!$scrollTopButton.is(":animated")
+			){
+		$scrollTopButton.fadeOut(500);
+	}
+	if (!target.length) return;
+	var name = Router.current().route.getName();
+	var threshold = scrollTopInt + $(window).height() - target.height();
+	if (target.offset().top < threshold) {
+		Session.set(name,{
+			limit: Session.get(name).limit + 5,
+			sort: Session.get(name).sort
+		});
+		console.log('scroll result2: ', threshold+"||"+target.offset().top);
+	}
 };
+
+scrollToTop = function(){
+	$('html,body').animate({scrollTop: '0px'},800);
+}
 
 Template.postsList.onRendered(function() {
 	if(this.find('.wrapper')){
@@ -29,8 +46,8 @@ Template.postsList.onRendered(function() {
 				$(node).insertBefore(next);
 			},
 			moveElement:function(node,next){
-				//node����Ҫ�ƶ�����λ�õ�DOMԪ��
-				//next��node�ƶ�����λ��֮����Ԫ��
+				//node锟斤拷锟斤拷要锟狡讹拷锟斤拷锟斤拷位锟矫碉拷DOM元锟斤拷
+				//next锟斤拷node锟狡讹拷锟斤拷锟斤拷位锟斤拷之锟斤拷锟斤拷元锟斤拷
 				var $node = $(node),$next = $(next);
 				var oldTop = $node.offset().top;
 				var height = $node.outerHeight(true);
@@ -43,7 +60,7 @@ Template.postsList.onRendered(function() {
 				$node.insertBefore(next);
 
 				var newTop = $node.offset().top;
-				//���ÿ�
+				//锟斤拷锟矫匡拷
 				$node
 					.removeClass('animate')
 					.css('top', oldTop - newTop);
