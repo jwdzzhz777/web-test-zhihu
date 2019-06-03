@@ -15,7 +15,7 @@ $ meteor add iyyang:cfs-aliyun
 ```
 取决于你需要什么。
 
-##介绍
+## 介绍
 ``cfs:standard-packages``
 <br>  这个包里面包括了``FS.file`` 和``FS.Collection``.
 ###FS.file:
@@ -26,10 +26,10 @@ $ meteor add iyyang:cfs-aliyun
 ``CollectionFS``还提供了一个有上传文件必要机制的HTTP上传包，可以被动跟踪上传进度，并暂停和恢复上传。
 
 链接：https://github.com/CollectionFS/Meteor-CollectionFS
-###cfs:ui
+### cfs:ui
 ``meteor add cfs:ui``
 有用到的:
-####FS.GetFile
+#### FS.GetFile
 ```html
 {{#with FS.GetFile collectionName id}}
   In here, we can use the FS.File instance methods that work as helpers, such as {{url}} or {{isImage}}
@@ -37,7 +37,7 @@ $ meteor add iyyang:cfs-aliyun
 ```
 允许你通过collection的 ``name`` 和 ``_id``得到一个``FS.GetFile``.
 
-####FS.UploadProgressBar
+#### FS.UploadProgressBar
 上传进度条:
 ```html
 {{> FS.UploadProgressBar bootstrap=true class='progress-bar-success progress-bar-striped active' showPercent=true}}
@@ -46,7 +46,7 @@ $ meteor add iyyang:cfs-aliyun
 注意:进度条到100%并不意味着上传全部完成,``hasStored()``等方法都不能完美表示上传完成,但``hasStored()``相对最接近。
 
 
-#summernote
+# summernote
 一个很好用的文本编辑器,可以对很多东西进行重写改成自己需要的。
 看这里:http://summernote.org/getting-started/<br>
 导入包：``meteor add summernote:summernote``<br>
@@ -54,7 +54,7 @@ $ meteor add iyyang:cfs-aliyun
 ```jq
 $('.summernote').summernote(object);//object可选
 ```
-##重写onImageUpload方法
+## 重写onImageUpload方法
 ```jq
 // onImageUpload callback
 $('#summernote').summernote({
@@ -82,7 +82,7 @@ $('#summernote').summernote('insertImage', url, function ($image) {
 ```
 可以自定义设置<img>的属性。
 
-##自定义按钮
+## 自定义按钮
 可以自定义在toolbar上的按钮:
 ```jq
 var deleatebutton = function (context) {
@@ -113,7 +113,7 @@ $('.summernote').summernote({
 ```
 可以在注释处自定义图片删除按钮的用途。
 
-##jquery-ui
+## jquery-ui
 jq的插件,里面有很多theme和一些小部件主要用到的是dialog<br>
 导入包``meteor add linto:jquery-ui``<br>
 看这里:http://www.runoob.com/jqueryui/example-datepicker.html<br>
